@@ -3,6 +3,8 @@ import { View, Text, Button, ActivityIndicator } from 'react-native';
 
 import axios from 'axios';
 
+import { questionsStyles } from '../styles/screens/Questions';
+
 const Questions = () => {
 
     const [questions, setQuestions] = useState([]);
@@ -57,7 +59,7 @@ const Questions = () => {
 
     return (
         <View>
-            {  orderedAnswer.length > 0 ? renderItem() : <ActivityIndicator size="large" />}
+            {orderedAnswer.length > 0 ? renderItem() : <ActivityIndicator size="large" />}
             <Button onPress={() => {
                 setCurrentIndex(currentIndex + 1)
                 setIsPressed(false)

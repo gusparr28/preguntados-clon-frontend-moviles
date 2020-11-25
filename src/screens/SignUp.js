@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
-import { signUpStyles } from '../styles/screens/SignUp';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import axios from 'axios';
+
+import { signUpStyles } from '../styles/screens/SignUp';
 
 const SignUp = ({ navigation }) => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [borderColor, setBorderColor] = useState(null);
 
     const submitSignUp = async () => {
         try {
@@ -17,37 +20,75 @@ const SignUp = ({ navigation }) => {
                 email,
                 password
             });
-            navigation.navigate("Sign In");
+            navigation.navigate("SignIn");
         } catch (e) {
             Alert.alert(e.response.data.error);
         }
     }
 
+    const onFocus = value => {
+        setBorderColor(value);
+    }
+
     return (
         <View style={signUpStyles.container}>
-            <View style={signUpStyles.inputContainer}>
-                <TextInput
-                    placeholder="Name"
-                    onChangeText={name => setName(name)}
-                    style={signUpStyles.input}
-                />
-                <TextInput
-                    placeholder="Email"
-                    onChangeText={email => setEmail(email)}
-                    style={signUpStyles.input}
-                />
-                <TextInput
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    onChangeText={password => setPassword(password)}
-                    style={signUpStyles.input}
-                />
-                <View style={signUpStyles.btnContainer}>
-                    <Button color="#ff5050" title="Sign Up" onPress={() => submitSignUp()} />
+            <Text style={signUpStyles.title}>Sign Up</Text>
+            <Text style={signUpStyles.subtitle}>Sign Up with Email and Password</Text>
+            <View>
+                <View style={[signUpStyles.section, {
+                    borderColor: borderColor == "name" ? "#3465d9" : "gray"
+                }]}>
+                    <MaterialIcons name="person" size={20} color={borderColor == "name" ? "#3465d9" : "gray"} />
+                    <TextInput
+                        placeholder="Name"
+                        style={[signUpStyles.textInput, {
+                            color: borderColor == "name" ? "#3465d9" : "gray"
+                        }]}
+                        onFocus={() => onFocus("name")}
+                        onChangeText={name => setName(name)}
+                    />
                 </View>
-                <Text onPress={() => navigation.navigate("SignIn")}>
-                    Already have an account?
-            </Text>
+                <View style={[signUpStyles.section, {
+                    borderColor: borderColor == "email" ? "#3465d9" : "gray"
+                }]}>
+                    <MaterialIcons name="email" size={20} color={borderColor == "email" ? "#3465d9" : "gray"} />
+                    <TextInput
+                        placeholder="Email"
+                        style={[signUpStyles.textInput, {
+                            color: borderColor == "email" ? "#3465d9" : "gray"
+                        }]}
+                        onFocus={() => onFocus("email")}
+                        onChangeText={email => setEmail(email)}
+                    />
+                </View>
+                <View style={[signUpStyles.section, {
+                    borderColor: borderColor == "password" ? "#3465d9" : "gray"
+                }]}>
+                    <MaterialIcons name="lock-outline" size={20} color={borderColor == "password" ? "#3465d9" : "gray"} />
+                    <TextInput
+                        placeholder="Password"
+                        style={[signUpStyles.textInput, {
+                            color: borderColor == "password" ? "#3465d9" : "gray"
+                        }]}
+                        secureTextEntry
+                        onFocus={() => onFocus("password")}
+                        onChangeText={password => setPassword(password)}
+                    />
+                </View>
+            </View>
+            <TouchableOpacity onPress={() => submitSignUp()} style={signUpStyles.signIn}>
+                <Text style={signUpStyles.textSignIn}>Sign Up</Text>
+            </TouchableOpacity>
+            <View style={signUpStyles.signUp}>
+                <Text style={[signUpStyles.textSignUp, {
+                    color: "gray"
+                }]}>Already have an account?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+                    <Text style={[signUpStyles.textSignUp, {
+                        color: "#3465d9",
+                        marginLeft: 3
+                    }]}>Sign In</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )

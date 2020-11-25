@@ -1,7 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 export const questionsStyles = StyleSheet.create({
-    correctAnswer: {
-        text
+    container: {
+        flex: 1,
+        alignItems: "center"
+    },
+    question: {
+        fontWeight: "bold"
     }
 })

@@ -1,13 +1,13 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Home from './Home';
 import Leaderboards from './Leaderboards';
 import Profile from './Profile';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const LeaderboardsStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
@@ -47,18 +47,18 @@ const Dashboard = () => {
         <Tab.Navigator>
             <Tab.Screen name="Home" component={HomeStackScreen} options={{
                 tabBarIcon: () => (
-                    <Icon name="ios-home" size={26} />
+                    <MaterialCommunityIcons name="home" size={26} />
                 )
             }} />
             <Tab.Screen name="Leaderboards" component={LeaderboardsStackScreen} options={{
-                tabBarIcon: () => {
-                    <Icon name="trophy" size={26} />
-                }
+                tabBarIcon: () => (
+                    <MaterialCommunityIcons name="trophy" size={26} />
+                )
             }} />
             <Tab.Screen name="Profile" component={ProfileStackScreen} options={{
-                tabBarIcon: () => {
-                    <Icon name="" size={26} />
-                }
+                tabBarIcon: () => (
+                    <MaterialCommunityIcons name="account" size={26} />
+                )
             }} />
         </Tab.Navigator>
     )

@@ -1,55 +1,38 @@
-import { StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { height } = Dimensions.get("screen");
+const heightImage = height * 0.5 * 0.8;
+const widthImage = heightImage * 1.1;
 
 export const homeStyles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Constants.statusBarHeight
-    },
-    secondContainer: {
-        flex: 1,
-        backgroundColor: "white",
-        justifyContent: "flex-start"
-    },
-    thirdContainer: {
-        height: "50%",
         justifyContent: "center",
         alignItems: "center"
     },
-    imageContainer: {
-        height: 250,
-        width: 250,
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 10
+    title: {
+        fontSize: 50,
+        textAlign: "center",
+        fontWeight: "bold",
+        flex: 1,
+        marginTop: 10
+    },
+    subtitle: {
+        fontSize: 20,
+        textAlign: "center"
     },
     image: {
-        flex: 1,
-        resizeMode: "contain"
+        height: heightImage,
+        width: widthImage,
+        alignItems: "center",
+        justifyContent: "center"
     },
-    topAnimatedView: {
-        backgroundColor: "blue",
-        height: 500,
-        width: "100%",
-        borderRadius: 125,
-        position: "absolute",
-        alignSelf: "center",
-        marginTop: 300
+    header: {
+        flex: 6,
+        justifyContent: "center",
+        alignItems: "center"
     },
-    animatedView: {
-        backgroundColor: "blue",
-        height: "40%",
-        width: "100%",
-        position: "absolute",
-        bottom: 0,
-        alignSelf: "center",
-        padding: 20
-    },
-    textAnimatedView: {
-        textAlign: "center",
-        marginBottom: 10,
-        color: "white",
-        fontSize: 18
+    button: {
+        marginBottom: 40
     }
 })  
