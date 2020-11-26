@@ -1,10 +1,28 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { Button } from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage';
 
-const Profile = () => {
+import { profileStyles } from '../styles/screens/Profile';
+
+const Profile = ({ navigation }) => {
+
+    const signOut = async () => {
+        try {
+            await AsyncStorage.removeItem('token');
+            navigation.navigate("SignIn");
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     return (
-        <View>
-            <Text>Profile</Text>
+        <View style={profileStyles.container}>
+            <View>
+                <Button color="red" mode="contained" onPress={() => signOut()}>
+                    Sign Out
+                </Button>
+            </View>
         </View>
     )
 }

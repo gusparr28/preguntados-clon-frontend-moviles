@@ -8,11 +8,11 @@ import { questionsStyles } from '../styles/screens/Questions';
 const Questions = () => {
 
     const [questions, setQuestions] = useState([]);
-    const [shuffledAnswer, setShuffledAnswer] = useState([])
-    const [orderedAnswer, setOrderedAnswer] = useState([])
-    const [currentIndex, setCurrentIndex] = useState(0)
-    const [isPressed, setIsPressed] = useState(false)
-    const [score, setScore] = useState(0)
+    const [shuffledAnswer, setShuffledAnswer] = useState([]);
+    const [orderedAnswer, setOrderedAnswer] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isPressed, setIsPressed] = useState(false);
+    const [score, setScore] = useState(0);
 
     const fetchApi = async () => {
         let res = await axios.get("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
@@ -33,24 +33,24 @@ const Questions = () => {
 
     useEffect(() => {
         if (shuffledAnswer.length > 0) {
-            setOrderedAnswer(shuffledAnswer.map(valor => valor.answer.sort(() => Math.random() - 0.5)))
+            setOrderedAnswer(shuffledAnswer.map(value => value.answer.sort(() => Math.random() - 0.5)))
         }
     }, [shuffledAnswer])
 
     const renderItem = () => {
         return (
-            <View>
+            <View style={questionsStyles.container}>
                 <Text>{questions[currentIndex].question}</Text>
-                {orderedAnswer[currentIndex].map((valor) => {
+                {orderedAnswer[currentIndex].map((value) => {
                     return (
                         <Button onPress={() => {
                             setIsPressed(true)
-                            if (questions[currentIndex].correct_answer === valor) {
+                            if (questions[currentIndex].correct_answer === value) {
                                 setScore(score + 1)
                             }
-                        }} color={isPressed ? questions[currentIndex].correct_answer === valor ? (
+                        }} color={isPressed ? questions[currentIndex].correct_answer === value ? (
                             'green'
-                        ) : 'red' : null} title={valor} />
+                        ) : 'red' : null} title={value} />
                     )
                 })}
             </View>
@@ -58,13 +58,21 @@ const Questions = () => {
     }
 
     return (
-        <View>
-            {orderedAnswer.length > 0 ? renderItem() : <ActivityIndicator size="large" />}
-            <Button onPress={() => {
-                setCurrentIndex(currentIndex + 1)
-                setIsPressed(false)
-            }} title="Next" />
-            <Text>Score: {score}</Text>
+        <View style={questionsStyles.container}>
+            <View>
+                {orderedAnswer.length > 0 ? renderItem() : <ActivityIndicator size="large" />}
+            </View>
+            <View>
+                <View>
+                    <Button onPress={() => {
+                        setCurrentIndex(currentIndex + 1)
+                        setIsPressed(false)
+                    }} title="Next" />
+                </View>
+                <View>
+                    <Text style={{ fontWeight: "bold" }}>Score: {score}</Text>
+                </View>
+            </View>
         </View>
     )
 }
