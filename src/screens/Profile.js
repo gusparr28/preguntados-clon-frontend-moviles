@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -7,10 +7,16 @@ import { profileStyles } from '../styles/screens/Profile';
 
 const Profile = ({ navigation }) => {
 
+    const [loading, setLoading] = useState(false);
+
     const signOut = async () => {
         try {
+            setLoading(true);
             await AsyncStorage.removeItem('token');
-            navigation.navigate("SignIn");
+            setLoading(false);
+            setTimeout(() => {
+                navigation.navigate("SignIn");
+            }, 500);
         } catch (e) {
             console.log(e);
         }
@@ -19,6 +25,7 @@ const Profile = ({ navigation }) => {
     return (
         <View style={profileStyles.container}>
             <View>
+                {loading ? <ActivityIndicator /> : null}
                 <Button color="red" mode="contained" onPress={() => signOut()}>
                     Sign Out
                 </Button>

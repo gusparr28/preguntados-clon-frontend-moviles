@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import axios from 'axios';
 
@@ -12,15 +13,20 @@ const SignUp = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [borderColor, setBorderColor] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const submitSignUp = async () => {
         try {
-            await axios.post("https://preguntados-clon-moviles.herokuapp.com/signup", {
+            setLoading(true);
+            let res = await axios.post("https://preguntados-clon-moviles.herokuapp.com/signup", {
                 name,
                 email,
                 password
             });
-            navigation.navigate("SignIn");
+            setLoading(false);
+            setTimeout(() => {
+                navigation.navigate("SignIn");
+            }, 500);
         } catch (e) {
             Alert.alert(e.response.data.error);
         }
@@ -76,6 +82,7 @@ const SignUp = ({ navigation }) => {
                     />
                 </View>
             </View>
+            {loading ? <ActivityIndicator /> : null}
             <TouchableOpacity onPress={() => submitSignUp()} style={signUpStyles.signIn}>
                 <Text style={signUpStyles.textSignIn}>Sign Up</Text>
             </TouchableOpacity>

@@ -16,7 +16,7 @@ const Carousel = ({ navigation }) => {
             <View style={carouselStyles.slide}>
                 <View style={carouselStyles.header}>
                     <Image
-                        source={require('../../assets/image1.jpg')}
+                        source={{uri: "https://res.cloudinary.com/instagram-web2/image/upload/v1606409415/preguntados-clon-moviles/image1_rmevmp.jpg"}}
                         style={carouselStyles.image}
                         resizeMode={"stretch"}
                     />
@@ -29,7 +29,7 @@ const Carousel = ({ navigation }) => {
             <View style={carouselStyles.slide}>
                 <View style={carouselStyles.header}>
                     <Image
-                        source={require('../../assets/image2.png')}
+                        source={{uri: "https://res.cloudinary.com/instagram-web2/image/upload/v1606409415/preguntados-clon-moviles/image2_vrgnzy.png"}}
                         style={carouselStyles.image}
                         resizeMode={"stretch"}
                     />
@@ -44,7 +44,7 @@ const Carousel = ({ navigation }) => {
             <View style={carouselStyles.slide}>
                 <View style={carouselStyles.header}>
                     <Image
-                        source={require('../../assets/image3.png')}
+                        source={{uri: "https://res.cloudinary.com/instagram-web2/image/upload/v1606409415/preguntados-clon-moviles/image3_tnf389.png"}}
                         style={carouselStyles.image}
                         resizeMode={"stretch"}
                     />

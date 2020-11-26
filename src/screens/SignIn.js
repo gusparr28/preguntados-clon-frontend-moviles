@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -12,15 +12,20 @@ const SignIn = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [borderColor, setBorderColor] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const submitSignIn = async () => {
         try {
+            setLoading(true);
             let res = await axios.post("https://preguntados-clon-moviles.herokuapp.com/signin", {
                 email,
                 password
             });
+            setLoading(false);
             await AsyncStorage.setItem("token", res.data.token);
-            navigation.navigate("Dashboard");
+            setTimeout(() => {
+                navigation.navigate("Dashboard");
+            }, 500);
         } catch (e) {
             Alert.alert(e.response.data.error);
         }
@@ -63,6 +68,7 @@ const SignIn = ({ navigation }) => {
                     />
                 </View>
             </View>
+            {loading ? <ActivityIndicator /> : null}
             <TouchableOpacity onPress={() => submitSignIn()} style={signInStyles.signIn}>
                 <Text style={signInStyles.textSignIn}>Sign In</Text>
             </TouchableOpacity>
