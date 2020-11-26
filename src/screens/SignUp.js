@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import axios from 'axios';
 
@@ -12,7 +11,6 @@ const SignUp = ({ navigation }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [borderColor, setBorderColor] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const submitSignUp = async () => {
@@ -32,52 +30,37 @@ const SignUp = ({ navigation }) => {
         }
     }
 
-    const onFocus = value => {
-        setBorderColor(value);
-    }
-
     return (
         <View style={signUpStyles.container}>
             <Text style={signUpStyles.title}>Sign Up</Text>
             <Text style={signUpStyles.subtitle}>Sign Up with Email and Password</Text>
             <View>
-                <View style={[signUpStyles.section, {
-                    borderColor: borderColor == "name" ? "#3465d9" : "gray"
-                }]}>
-                    <MaterialIcons name="person" size={20} color={borderColor == "name" ? "#3465d9" : "gray"} />
+                <View style={signUpStyles.section}>
+                    <MaterialIcons name="person" size={20} color="#3465d9" />
                     <TextInput
                         placeholder="Name"
-                        style={[signUpStyles.textInput, {
-                            color: borderColor == "name" ? "#3465d9" : "gray"
-                        }]}
-                        onFocus={() => onFocus("name")}
+                        style={signUpStyles.textInput}
                         onChangeText={name => setName(name)}
                     />
                 </View>
-                <View style={[signUpStyles.section, {
-                    borderColor: borderColor == "email" ? "#3465d9" : "gray"
-                }]}>
-                    <MaterialIcons name="email" size={20} color={borderColor == "email" ? "#3465d9" : "gray"} />
+                <View style={signUpStyles.section}>
+                    <MaterialIcons name="email" size={20} color="#3465d9" />
                     <TextInput
                         placeholder="Email"
                         style={[signUpStyles.textInput, {
-                            color: borderColor == "email" ? "#3465d9" : "gray"
+                            color: "#3465d9"
                         }]}
-                        onFocus={() => onFocus("email")}
                         onChangeText={email => setEmail(email)}
                     />
                 </View>
-                <View style={[signUpStyles.section, {
-                    borderColor: borderColor == "password" ? "#3465d9" : "gray"
-                }]}>
-                    <MaterialIcons name="lock-outline" size={20} color={borderColor == "password" ? "#3465d9" : "gray"} />
+                <View style={signUpStyles.section}>
+                    <MaterialIcons name="lock-outline" size={20} color="#3465d9" />
                     <TextInput
                         placeholder="Password"
                         style={[signUpStyles.textInput, {
-                            color: borderColor == "password" ? "#3465d9" : "gray"
+                            color: "#3465d9"
                         }]}
                         secureTextEntry
-                        onFocus={() => onFocus("password")}
                         onChangeText={password => setPassword(password)}
                     />
                 </View>

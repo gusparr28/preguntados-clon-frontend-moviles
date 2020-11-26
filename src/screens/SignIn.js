@@ -11,7 +11,6 @@ const SignIn = ({ navigation }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [borderColor, setBorderColor] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const submitSignIn = async () => {
@@ -31,39 +30,25 @@ const SignIn = ({ navigation }) => {
         }
     }
 
-    const onFocus = value => {
-        setBorderColor(value);
-    }
-
     return (
         <View style={signInStyles.container}>
             <Text style={signInStyles.title}>Sign In</Text>
             <Text style={signInStyles.subtitle}>Sign In with Email and Password</Text>
             <View>
-                <View style={[signInStyles.section, {
-                    borderColor: borderColor == "email" ? "#3465d9" : "gray"
-                }]}>
-                    <MaterialIcons name="email" size={20} color={borderColor == "email" ? "#3465d9" : "gray"} />
+                <View style={signInStyles.section}>
+                    <MaterialIcons name="email" size={20} color="#3465d9" />
                     <TextInput
                         placeholder="Email"
-                        style={[signInStyles.textInput, {
-                            color: borderColor == "email" ? "#3465d9" : "gray"
-                        }]}
-                        onFocus={() => onFocus("email")}
+                        style={signInStyles.textInput}
                         onChangeText={email => setEmail(email)}
                     />
                 </View>
-                <View style={[signInStyles.section, {
-                    borderColor: borderColor == "password" ? "#3465d9" : "gray"
-                }]}>
-                    <MaterialIcons name="lock-outline" size={20} color={borderColor == "password" ? "#3465d9" : "gray"} />
+                <View style={signInStyles.section}>
+                    <MaterialIcons name="lock-outline" size={20} color="#3465d9" />
                     <TextInput
                         placeholder="Password"
-                        style={[signInStyles.textInput, {
-                            color: borderColor == "password" ? "#3465d9" : "gray"
-                        }]}
+                        style={signInStyles.textInput}
                         secureTextEntry
-                        onFocus={() => onFocus("password")}
                         onChangeText={password => setPassword(password)}
                     />
                 </View>
